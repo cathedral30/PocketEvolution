@@ -3,6 +3,7 @@ package info.hcooper.pocketevolution.ui.canvas;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
@@ -33,6 +34,11 @@ public class CanvasView extends View {
         for (Creature c : creatures) {
             canvas.drawBitmap(c.getBitmap(), c.getX(), c.getY(), paint);
         }
+    }
+
+    public void refresh(Canvas canvas) {
+        canvas.drawColor(Color.WHITE);
+        this.draw(canvas);
     }
 
     public void setPaint(Paint paint) {
