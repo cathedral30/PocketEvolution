@@ -8,9 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import info.hcooper.pocketevolution.R;
 import info.hcooper.pocketevolution.ui.canvas.CanvasView;
@@ -26,7 +26,6 @@ public class GameFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_game, container, false);
         gameCanvas = root.findViewById(R.id.game_canvas);
-
         Paint paint = new Paint();
         paint.setColor(Color.BLACK);
         paint.setAntiAlias(false);
@@ -37,16 +36,17 @@ public class GameFragment extends Fragment {
         gameScheduledExecutor.scheduleAtFixedRate(new ScheduledRunnable(), 0L, 50L, TimeUnit.MILLISECONDS);
 
         creatures = new ArrayList<>();
-        creatures.add(new Creature(100f, 100f, BitmapFactory.decodeResource(getResources(), R.drawable.ic_circle), 1000));
+        creatures.add(new Creature(new CreatureXY(100f, 100f), BitmapFactory.decodeResource(getResources(), R.drawable.ic_circle), 30f));
+        creatures.add(new Creature(new CreatureXY(100f, 100f), BitmapFactory.decodeResource(getResources(), R.drawable.ic_circle), 30f));
+        creatures.add(new Creature(new CreatureXY(100f, 100f), BitmapFactory.decodeResource(getResources(), R.drawable.ic_circle), 40f));
+        creatures.add(new Creature(new CreatureXY(100f, 100f), BitmapFactory.decodeResource(getResources(), R.drawable.ic_circle), 40f));
+        creatures.add(new Creature(new CreatureXY(100f, 100f), BitmapFactory.decodeResource(getResources(), R.drawable.ic_circle), 20f));
         return root;
     }
 
     public static void moveCreatures() {
         for (Creature creature : creatures) {
-            float x_move = new Random().nextInt(creature.getSpeed() * 2) - creature.getSpeed();
-            float y_move = new Random().nextInt(creature.getSpeed() * 2) - creature.getSpeed();
-            creature.setX(creature.getX() + (x_move / 100));
-            creature.setY(creature.getY() + (y_move / 100));
+            creature.move();
         }
     }
 }
