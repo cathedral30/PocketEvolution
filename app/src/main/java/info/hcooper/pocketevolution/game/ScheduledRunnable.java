@@ -1,13 +1,13 @@
-package info.hcooper.pocketevolution.ui.canvas;
+package info.hcooper.pocketevolution.game;
 
-import info.hcooper.pocketevolution.ui.game.GameFragment;
+import info.hcooper.pocketevolution.ui.canvas.CanvasView;
 
 public class ScheduledRunnable implements Runnable {
 
     @Override
     public void run() {
         CanvasView gameCanvas = GameFragment.gameCanvas;
-        GameFragment.moveCreatures();
+        GameFragment.gameEngine.moveCreatures();
         gameCanvas.invalidate();
     }
 }

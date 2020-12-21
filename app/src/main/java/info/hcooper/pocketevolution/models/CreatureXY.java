@@ -1,4 +1,4 @@
-package info.hcooper.pocketevolution.ui.game;
+package info.hcooper.pocketevolution.models;
 
 public class CreatureXY {
     float x;

@@ -7,8 +7,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import androidx.annotation.Nullable;
 
-import info.hcooper.pocketevolution.ui.game.Creature;
-import info.hcooper.pocketevolution.ui.game.GameFragment;
+import info.hcooper.pocketevolution.models.Creature;
+import info.hcooper.pocketevolution.game.GameFragment;
 
 public class CanvasView extends View {
     private Paint paint;
@@ -27,7 +27,7 @@ public class CanvasView extends View {
 
     @Override
     public void onDraw(Canvas canvas) {
-        for (Creature c : GameFragment.creatures) {
+        for (Creature c : GameFragment.gameEngine.getCreatures()) {
             canvas.drawBitmap(c.getBitmap(), c.getLocation().getX(), c.getLocation().getY(), paint);
         }
     }
