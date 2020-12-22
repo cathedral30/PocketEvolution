@@ -10,13 +10,17 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+
 import info.hcooper.pocketevolution.R;
+import info.hcooper.pocketevolution.models.Creature;
 import info.hcooper.pocketevolution.ui.canvas.CanvasView;
 
 public class GameFragment extends Fragment {
 
     public static CanvasView gameCanvas;
-    public static GameEngine gameEngine;
+    public GameEngine gameEngine;
+    public static ArrayList<Creature> creatures;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -24,7 +28,7 @@ public class GameFragment extends Fragment {
         gameCanvas = root.findViewById(R.id.game_canvas);
 
         FloatingActionButton addbutton = root.findViewById(R.id.addCreatureButton);
-        addbutton.setOnClickListener(v -> gameEngine.addDefaultCreatures(1, getContext()));
+        addbutton.setOnClickListener(v -> gameEngine.addDefaultCreatures(1));
 
         return root;
     }
@@ -32,7 +36,7 @@ public class GameFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        gameEngine = new GameEngine(gameCanvas);
-        gameEngine.init();
+        gameEngine = new GameEngine(gameCanvas, getContext());
+        gameEngine.init(this);
     }
 }

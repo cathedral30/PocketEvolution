@@ -27,7 +27,7 @@ public class CanvasView extends View {
 
     @Override
     public void onDraw(Canvas canvas) {
-        for (Creature c : GameFragment.gameEngine.getCreatures()) {
+        for (Creature c : GameFragment.creatures) {
             canvas.drawBitmap(c.getBitmap(), c.getLocation().getX(), c.getLocation().getY(), paint);
         }
     }

@@ -10,30 +10,31 @@ import info.hcooper.pocketevolution.models.Creature;
 import info.hcooper.pocketevolution.models.CreatureXY;
 import info.hcooper.pocketevolution.ui.canvas.CanvasView;
 
+import static info.hcooper.pocketevolution.game.GameFragment.creatures;
+
 public class GameEngine {
 
-    private CanvasView gameCanvas;
-    private ArrayList<Creature> creatures;
-    private CreatureXY screenDimens;
+    private final CanvasView gameCanvas;
+    public static CreatureXY screenDimens;
+    private final Context context;
 
-    public GameEngine(CanvasView gameCanvas) {
+    public GameEngine(CanvasView gameCanvas, Context context) {
         this.gameCanvas = gameCanvas;
-        creatures = new ArrayList<>();
+        this.context = context;
     }
 
     public ArrayList<Creature> getCreatures() {
         return creatures;
     }
 
-    public void init() {
+    public void init(GameFragment gameFragment) {
+        creatures = new ArrayList<>();
         GameScheduledExecutor gameScheduledExecutor = new GameScheduledExecutor(1);
-        gameScheduledExecutor.scheduleAtFixedRate(new ScheduledRunnable(), 0L, 50L, TimeUnit.MILLISECONDS);
+        gameScheduledExecutor.scheduleAtFixedRate(new ScheduledRunnable(gameFragment), 0L, 50L, TimeUnit.MILLISECONDS);
     }
 
-    public void addDefaultCreatures(int num, Context context) {
+    public void addDefaultCreatures(int num) {
         screenDimens = new CreatureXY(gameCanvas.getMeasuredWidth(), gameCanvas.getMeasuredHeight());
-        System.out.println("width " + screenDimens.getX());
-        System.out.println("height " + screenDimens.getY());
         for (int i = 0; i < num; i++) {
             creatures.add(new Creature(new CreatureXY(100f, 100f), BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_circle), 30f));
         }

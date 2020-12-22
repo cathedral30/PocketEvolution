@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 
 import java.util.Random;
 
+import info.hcooper.pocketevolution.game.GameEngine;
+
 public class Creature {
     private CreatureXY location;
     private Bitmap bitmap;
@@ -51,14 +53,14 @@ public class Creature {
         float x_rand = 300 - new Random().nextInt(600) + this.location.getX();
         float y_rand = 400 - new Random().nextInt(800) + this.location.getY();
 
-        if (x_rand > 1080) {
-            x_rand = 1080;
+        if (x_rand > GameEngine.screenDimens.getX()) {
+            x_rand = GameEngine.screenDimens.getX();
         } else if (x_rand < 0) {
             x_rand = 0;
         }
 
-        if (y_rand > 1868) {
-            y_rand = 1868;
+        if (y_rand > GameEngine.screenDimens.getY()) {
+            y_rand = GameEngine.screenDimens.getY();
         } else if (y_rand < 0) {
             y_rand = 0;
         }
