@@ -1,12 +1,10 @@
 package info.hcooper.pocketevolution.game;
 
-import info.hcooper.pocketevolution.ui.canvas.CanvasView;
-
-public class ScheduledRunnable implements Runnable {
+public class ScheduledRefresh implements Runnable {
 
     private final GameFragment gameFragment;
 
-    public ScheduledRunnable(GameFragment gameFragment) {
+    public ScheduledRefresh(GameFragment gameFragment) {
         this.gameFragment = gameFragment;
     }
 

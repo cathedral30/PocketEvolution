@@ -1,38 +1,25 @@
 package info.hcooper.pocketevolution.models;
 
 import android.graphics.Bitmap;
-
 import java.util.Random;
-
 import info.hcooper.pocketevolution.game.GameEngine;
 
-public class Creature {
-    private CreatureXY location;
-    private Bitmap bitmap;
+public class Creature extends DrawObject {
     private float speed;
-    private CreatureXY goingLocation;
-    private CreatureXY moveFactor;
+    private LocationXY goingLocation;
+    private LocationXY moveFactor;
 
-    public Creature(CreatureXY location, Bitmap bitmap, float speed) {
-        this.location = location;
-        this.bitmap = bitmap;
+    public Creature(LocationXY location, Bitmap bitmap, float speed) {
+        super(location, bitmap);
         this.speed = speed;
     }
 
-    public Bitmap getBitmap() {
-        return bitmap;
-    }
-
-    public CreatureXY getLocation() {
-        return location;
-    }
-
-    public void setGoingLocation(CreatureXY goingLocation) {
+    public void setGoingLocation(LocationXY goingLocation) {
         this.goingLocation = goingLocation;
         float total_x = this.goingLocation.getX() - this.location.getX();
         float total_y = this.goingLocation.getY() - this.location.getY();
         float pos_tot = Math.abs(total_x) + Math.abs(total_y);
-        this.moveFactor = new CreatureXY(this.speed * total_x / pos_tot, this.speed * total_y / pos_tot);
+        this.moveFactor = new LocationXY(this.speed * total_x / pos_tot, this.speed * total_y / pos_tot);
     }
 
     public void move() {
@@ -53,17 +40,17 @@ public class Creature {
         float x_rand = 300 - new Random().nextInt(600) + this.location.getX();
         float y_rand = 400 - new Random().nextInt(800) + this.location.getY();
 
-        if (x_rand > GameEngine.screenDimens.getX()) {
-            x_rand = GameEngine.screenDimens.getX();
+        if (x_rand > GameEngine.screenWidth) {
+            x_rand = GameEngine.screenWidth;
         } else if (x_rand < 0) {
             x_rand = 0;
         }
 
-        if (y_rand > GameEngine.screenDimens.getY()) {
-            y_rand = GameEngine.screenDimens.getY();
+        if (y_rand > GameEngine.screenHeight) {
+            y_rand = GameEngine.screenHeight;
         } else if (y_rand < 0) {
             y_rand = 0;
         }
-        setGoingLocation(new CreatureXY(x_rand, y_rand));
+        setGoingLocation(new LocationXY(x_rand, y_rand));
     }
 }

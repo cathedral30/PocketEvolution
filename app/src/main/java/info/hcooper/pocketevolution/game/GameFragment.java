@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import info.hcooper.pocketevolution.R;
 import info.hcooper.pocketevolution.models.Creature;
+import info.hcooper.pocketevolution.models.Food;
 import info.hcooper.pocketevolution.ui.canvas.CanvasView;
 
 public class GameFragment extends Fragment {
@@ -21,6 +22,7 @@ public class GameFragment extends Fragment {
     public static CanvasView gameCanvas;
     public GameEngine gameEngine;
     public static ArrayList<Creature> creatures;
+    public static ArrayList<Food> foods;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {

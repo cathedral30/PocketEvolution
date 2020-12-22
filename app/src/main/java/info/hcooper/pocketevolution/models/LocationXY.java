@@ -1,10 +1,10 @@
 package info.hcooper.pocketevolution.models;
 
-public class CreatureXY {
+public class LocationXY {
     float x;
     float y;
 
-    public CreatureXY(float x, float y) {
+    public LocationXY(float x, float y) {
         this.x = x;
         this.y = y;
     }

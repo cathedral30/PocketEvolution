@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 
 import info.hcooper.pocketevolution.models.Creature;
 import info.hcooper.pocketevolution.game.GameFragment;
+import info.hcooper.pocketevolution.models.Food;
 
 public class CanvasView extends View {
     private Paint paint;
@@ -29,6 +30,9 @@ public class CanvasView extends View {
     public void onDraw(Canvas canvas) {
         for (Creature c : GameFragment.creatures) {
             canvas.drawBitmap(c.getBitmap(), c.getLocation().getX(), c.getLocation().getY(), paint);
+        }
+        for (Food f : GameFragment.foods) {
+            canvas.drawBitmap(f.getBitmap(), f.getLocation().getX(), f.getLocation().getY(), paint);
         }
     }
 
