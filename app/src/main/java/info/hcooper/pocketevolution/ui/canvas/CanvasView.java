@@ -1,6 +1,7 @@
 package info.hcooper.pocketevolution.ui.canvas;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
@@ -29,10 +30,10 @@ public class CanvasView extends View {
     @Override
     public void onDraw(Canvas canvas) {
         for (Creature c : GameFragment.creatures) {
-            canvas.drawBitmap(c.getBitmap(), c.getLocation().getX(), c.getLocation().getY(), paint);
+            canvas.drawBitmap(c.getsBitmap(), c.getLocation().getX(), c.getLocation().getY(), paint);
         }
         for (Food f : GameFragment.foods) {
-            canvas.drawBitmap(f.getBitmap(), f.getLocation().getX(), f.getLocation().getY(), paint);
+            canvas.drawBitmap(f.getsBitmap(), f.getLocation().getX(), f.getLocation().getY(), paint);
         }
     }
 

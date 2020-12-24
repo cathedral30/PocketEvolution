@@ -10,7 +10,7 @@ public class Creature extends DrawObject {
     private LocationXY moveFactor;
 
     public Creature(LocationXY location, Bitmap bitmap, float speed) {
-        super(location, bitmap);
+        super(location, bitmap, 100, 100);
         this.speed = speed;
     }
 
