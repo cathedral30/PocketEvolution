@@ -8,6 +8,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import androidx.annotation.Nullable;
 
+import java.util.ConcurrentModificationException;
+
 import info.hcooper.pocketevolution.models.Creature;
 import info.hcooper.pocketevolution.game.GameFragment;
 import info.hcooper.pocketevolution.models.Food;
@@ -32,8 +34,12 @@ public class CanvasView extends View {
         for (Creature c : GameFragment.creatures) {
             canvas.drawBitmap(c.getsBitmap(), c.getLocation().getX(), c.getLocation().getY(), paint);
         }
-        for (Food f : GameFragment.foods) {
-            canvas.drawBitmap(f.getsBitmap(), f.getLocation().getX(), f.getLocation().getY(), paint);
+        try {
+            for (Food f : GameFragment.foods) {
+                canvas.drawBitmap(f.getsBitmap(), f.getLocation().getX(), f.getLocation().getY(), paint);
+            }
+        } catch (ConcurrentModificationException e) {
+            System.out.println("Concurrent error caught");
         }
     }
 

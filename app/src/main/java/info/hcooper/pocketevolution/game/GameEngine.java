@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.BitmapFactory;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import info.hcooper.pocketevolution.R;
@@ -31,7 +32,7 @@ public class GameEngine {
         creatures = new ArrayList<>();
         foods = new ArrayList<>();
         GameScheduledExecutor gameScheduledExecutor = new GameScheduledExecutor(2);
-        gameScheduledExecutor.scheduleAtFixedRate(new ScheduledRefresh(gameFragment), 0L, 50L, TimeUnit.MILLISECONDS);
+        gameScheduledExecutor.scheduleAtFixedRate(new ScheduledRefresh(gameFragment), 0L, 33L, TimeUnit.MILLISECONDS);
         gameScheduledExecutor.scheduleAtFixedRate(new ScheduledFood(this), 1L, 1L, TimeUnit.SECONDS);
     }
 
@@ -39,7 +40,7 @@ public class GameEngine {
         screenWidth = gameCanvas.getMeasuredWidth();
         screenHeight = gameCanvas.getMeasuredHeight();
         for (int i = 0; i < num; i++) {
-            creatures.add(new Creature(new LocationXY(100f, 100f), BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_circle), 30f));
+            creatures.add(new Creature(new LocationXY(100f, 100f), BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_circle), 30f, 100));
         }
     }
 
@@ -53,7 +54,38 @@ public class GameEngine {
         screenWidth = gameCanvas.getMeasuredWidth();
         screenHeight = gameCanvas.getMeasuredHeight();
         for (int i = 0; i < num; i++) {
-            foods.add(new Food(new LocationXY(new Random().nextInt(screenWidth), new Random().nextInt(screenHeight)), BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_food)));
+            foods.add(new Food(new LocationXY(new Random().nextInt(screenWidth), new Random().nextInt(screenHeight)), BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_food), 10));
         }
+    }
+
+    public void checkEat() {
+        Collection<Food> eatenFood = new ArrayList<>();
+        for (Food food: foods) {
+            float foodX = food.getLocation().getX();
+            float foodY = food.getLocation().getY();
+            for (Creature creature : creatures) {
+                float creatureX = creature.getLocation().getX();
+                if (creatureX < foodX && foodX < creatureX + creature.getWidth()) {
+                    float creatureY = creature.getLocation().getY();
+                    if (creatureY < foodY && foodY < creatureY + creature.getHeight()) {
+                        creature.eat(food);
+                        eatenFood.add(food);
+                        break;
+                    }
+                }
+            }
+        }
+        foods.removeAll(eatenFood);
+    }
+
+    public void checkHunger() {
+        Collection<Creature> deadCreatures = new ArrayList<>();
+        for (Creature creature : creatures) {
+            creature.hunger();
+            if (!creature.getAlive()) {
+                deadCreatures.add(creature);
+            }
+        }
+        creatures.removeAll(deadCreatures);
     }
 }

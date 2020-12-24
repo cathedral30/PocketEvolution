@@ -8,10 +8,18 @@ public class Creature extends DrawObject {
     private float speed;
     private LocationXY goingLocation;
     private LocationXY moveFactor;
+    private float health;
+    private Boolean alive;
 
-    public Creature(LocationXY location, Bitmap bitmap, float speed) {
+    public Creature(LocationXY location, Bitmap bitmap, float speed, float health) {
         super(location, bitmap, 100, 100);
         this.speed = speed;
+        this.health = health;
+        this.alive = Boolean.TRUE;
+    }
+
+    public Boolean getAlive() {
+        return alive;
     }
 
     public void setGoingLocation(LocationXY goingLocation) {
@@ -52,5 +60,16 @@ public class Creature extends DrawObject {
             y_rand = 0;
         }
         setGoingLocation(new LocationXY(x_rand, y_rand));
+    }
+
+    public void eat(Food food) {
+        this.health += food.getSustenance();
+    }
+
+    public void hunger() {
+        this.health -= this.getWidth() * this.getHeight() / 50000f;
+        if (this.health <= 0) {
+            this.alive = Boolean.FALSE;
+        }
     }
 }

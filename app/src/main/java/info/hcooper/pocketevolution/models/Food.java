@@ -4,7 +4,14 @@ import android.graphics.Bitmap;
 
 public class Food extends DrawObject {
 
-    public Food(LocationXY location, Bitmap bitmap) {
+    private int sustenance;
+
+    public Food(LocationXY location, Bitmap bitmap, int sustenance) {
         super(location, bitmap, 20, 20);
+        this.sustenance = sustenance;
+    }
+
+    public int getSustenance() {
+        return sustenance;
     }
 }
