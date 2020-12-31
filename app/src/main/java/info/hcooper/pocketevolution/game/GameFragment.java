@@ -28,17 +28,12 @@ public class GameFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_game, container, false);
         gameCanvas = root.findViewById(R.id.game_canvas);
+        gameEngine = new GameEngine(gameCanvas, getContext());
+        gameEngine.init(this);
 
         FloatingActionButton addbutton = root.findViewById(R.id.addCreatureButton);
         addbutton.setOnClickListener(v -> gameEngine.addDefaultCreatures(1));
 
         return root;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        gameEngine = new GameEngine(gameCanvas, getContext());
-        gameEngine.init(this);
     }
 }

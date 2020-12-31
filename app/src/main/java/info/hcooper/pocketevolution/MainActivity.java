@@ -1,11 +1,8 @@
 package info.hcooper.pocketevolution;
 
 import android.os.Bundle;
-import android.view.View;
 import android.view.Menu;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import android.view.WindowManager;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.navigation.NavController;
@@ -24,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

@@ -31,7 +31,7 @@ public class GameEngine {
     public void init(GameFragment gameFragment) {
         creatures = new ArrayList<>();
         foods = new ArrayList<>();
-        GameScheduledExecutor gameScheduledExecutor = new GameScheduledExecutor(2);
+        GameScheduledExecutor gameScheduledExecutor = new GameScheduledExecutor(1);
         gameScheduledExecutor.scheduleAtFixedRate(new ScheduledRefresh(gameFragment), 0L, 33L, TimeUnit.MILLISECONDS);
         gameScheduledExecutor.scheduleAtFixedRate(new ScheduledFood(this), 1L, 1L, TimeUnit.SECONDS);
     }
@@ -87,5 +87,16 @@ public class GameEngine {
             }
         }
         creatures.removeAll(deadCreatures);
+    }
+
+    public void checkReproduce() {
+        Collection<Creature> newCreatures = new ArrayList<>();
+        for (Creature creature : creatures) {
+            if (creature.getReproduce()) {
+                newCreatures.add(new Creature(creature));
+                creature.setReproduce(Boolean.FALSE);
+            }
+        }
+        creatures.addAll(newCreatures);
     }
 }

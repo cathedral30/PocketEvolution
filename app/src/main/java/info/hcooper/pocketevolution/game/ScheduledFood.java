@@ -10,6 +10,8 @@ public class ScheduledFood implements Runnable {
 
     @Override
     public void run() {
-        gameEngine.addFood(1);
+        gameEngine.addFood(5);
+        gameEngine.checkHunger();
+        gameEngine.checkReproduce();
     }
 }

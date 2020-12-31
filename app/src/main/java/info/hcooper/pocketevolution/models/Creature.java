@@ -9,13 +9,22 @@ public class Creature extends DrawObject {
     private LocationXY goingLocation;
     private LocationXY moveFactor;
     private float health;
-    private Boolean alive;
+    private final float orig_health;
+    private Boolean alive = Boolean.TRUE;
+    private Boolean reproduce = Boolean.FALSE;
 
     public Creature(LocationXY location, Bitmap bitmap, float speed, float health) {
         super(location, bitmap, 100, 100);
         this.speed = speed;
         this.health = health;
-        this.alive = Boolean.TRUE;
+        this.orig_health = health;
+    }
+
+    public Creature(Creature creature) {
+        super(new LocationXY(creature.getLocation().getX() + 10f, creature.getLocation().getY()), creature.getsBitmap(), creature.getWidth(), creature.getHeight());
+        this.speed = creature.getSpeed();
+        this.health = creature.getOrig_health();
+        this.orig_health = creature.getOrig_health();
     }
 
     public Boolean getAlive() {
@@ -67,9 +76,28 @@ public class Creature extends DrawObject {
     }
 
     public void hunger() {
-        this.health -= this.getWidth() * this.getHeight() / 50000f;
+        this.health -= this.getWidth() * this.getHeight() / 1000f;
         if (this.health <= 0) {
             this.alive = Boolean.FALSE;
+        } else if (this.health > this.orig_health * 2) {
+            this.reproduce = Boolean.TRUE;
+            this.health -= this.orig_health;
         }
+    }
+
+    public Boolean getReproduce() {
+        return reproduce;
+    }
+
+    public void setReproduce(Boolean reproduce) {
+        this.reproduce = reproduce;
+    }
+
+    public float getSpeed() {
+        return speed;
+    }
+
+    public float getOrig_health() {
+        return orig_health;
     }
 }
