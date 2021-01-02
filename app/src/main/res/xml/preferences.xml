@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory android:title="@string/preference_environment">
+        <EditTextPreference
+            android:layout_width="match_parent"
+            android:defaultValue="1"
+            android:key="pref_num_food"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/preference_num_food" />
+
+        <EditTextPreference
+            android:layout_width="match_parent"
+            android:defaultValue="50"
+            android:key="pref_food_val"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/preference_food_value" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/preference_creatures">
+        <SwitchPreferenceCompat
+            android:layout_width="match_parent"
+            android:defaultValue="true"
+            android:key="pref_reproduce"
+            android:title="@string/preference_reproduce" />
+
+        <ListPreference
+            android:entries="@array/percentages"
+            android:entryValues="@array/percentages_values"
+            app:defaultValue="100"
+            android:key="hunger_reproduce"
+            android:title="@string/preference_hunger_reproduce"
+            />
+
+        <SwitchPreferenceCompat
+            android:layout_width="match_parent"
+            android:defaultValue="true"
+            android:key="pref_starve"
+            android:title="@string/preference_starve" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

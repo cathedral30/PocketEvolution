@@ -9,4 +9,11 @@
 
     <string name="menu_home">Home</string>
     <string name="menu_game">Game</string>
+    <string name="preference_environment">Environment</string>
+    <string name="preference_num_food">Food spawns per second</string>
+    <string name="preference_food_value">Nourishment per food</string>
+    <string name="preference_creatures">Creatures</string>
+    <string name="preference_reproduce">Reproduce</string>
+    <string name="preference_hunger_reproduce">Hunger percent needed for reproduction</string>
+    <string name="preference_starve">Starve</string>
 </resources>

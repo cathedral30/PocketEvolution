@@ -1,9 +1,11 @@
 package info.hcooper.pocketevolution.ui.home;
 
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,25 +13,30 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.preference.PreferenceFragmentCompat;
 
 import info.hcooper.pocketevolution.R;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends PreferenceFragmentCompat {
 
-    private HomeViewModel homeViewModel;
+    @Override
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+        setPreferencesFromResource(R.xml.preferences, rootKey);
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        androidx.preference.EditTextPreference editTextPreferenceNum = getPreferenceManager().findPreference("pref_num_food");
+        editTextPreferenceNum.setOnBindEditTextListener(new androidx.preference.EditTextPreference.OnBindEditTextListener() {
             @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
+            public void onBindEditText(@NonNull EditText editText) {
+                editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED);
             }
         });
-        return root;
+
+        androidx.preference.EditTextPreference editTextPreferenceVal = getPreferenceManager().findPreference("pref_food_val");
+        editTextPreferenceVal.setOnBindEditTextListener(new androidx.preference.EditTextPreference.OnBindEditTextListener() {
+            @Override
+            public void onBindEditText(@NonNull EditText editText) {
+                editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED);
+            }
+        });
     }
 }
